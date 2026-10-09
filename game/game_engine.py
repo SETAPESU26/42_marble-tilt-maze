@@ -1,8 +1,23 @@
 import math
+from importlib import import_module
 import pygame
 from .marble import Marble
 from .wall import Wall
-from .sound import SoundManager
+
+try:
+    SoundManager = import_module(".sound", __package__).SoundManager
+except ModuleNotFoundError:
+    class SoundManager:
+        """Fallback for installations without the optional sound module."""
+
+        def play_timeout(self):
+            pass
+
+        def play_win(self):
+            pass
+
+        def play_bounce(self, _volume):
+            pass
 
 # Game Engine
 
